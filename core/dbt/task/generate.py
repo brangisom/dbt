@@ -14,6 +14,7 @@ from dbt.contracts.results import (
 )
 from dbt.exceptions import InternalException
 from dbt.include.global_project import DOCS_INDEX_FILE_PATH
+from dbt.perf_utils import get_full_manifest
 import dbt.ui.printer
 import dbt.utils
 import dbt.compilation
@@ -195,6 +196,8 @@ class GenerateTask(CompileTask):
                     'compile failed, cannot generate docs'
                 )
                 return CatalogResults({}, datetime.utcnow(), compile_results)
+        else:
+            self.manifest = get_full_manifest(self.config)
 
         shutil.copyfile(
             DOCS_INDEX_FILE_PATH,
@@ -224,7 +227,8 @@ class GenerateTask(CompileTask):
 
         path = os.path.join(self.config.target_path, CATALOG_FILENAME)
         results.write(path)
-        write_manifest(self.config, self.manifest)
+        if self.args.compile:
+            write_manifest(self.config, self.manifest)
 
         dbt.ui.printer.print_timestamped_line(
             'Catalog written to {}'.format(os.path.abspath(path))
