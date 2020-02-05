@@ -67,7 +67,7 @@ jobs:
   pool:
     vmImage: 'vs2017-win2016'
   dependsOn: PostgresIntegrationTest
-  condition: and(succeeded(), eq(variables['Build.RequestedFor'], 'dbt'))
+  condition: and(succeeded(), eq(variables['Build.Reason'], 'dbt'))
   steps:
   - task: UsePythonVersion@0
     inputs:
@@ -89,7 +89,7 @@ jobs:
   pool:
     vmImage: 'vs2017-win2016'
   dependsOn: PostgresIntegrationTest
-  condition: and(succeeded(), eq(variables['Build.RequestedFor'], 'dbt'))
+  condition: and(succeeded(), eq(variables['Build.Reason'], 'dbt'))
   steps:
   - task: UsePythonVersion@0
     inputs:
@@ -106,7 +106,7 @@ jobs:
   pool:
     vmImage: 'vs2017-win2016'
   dependsOn: PostgresIntegrationTest
-  condition: and(succeeded(), eq(variables['Build.RequestedFor'], 'dbt'))
+  condition: and(succeeded(), eq(variables['Build.Reason'], 'dbt'))
   steps:
   - task: UsePythonVersion@0
     inputs:

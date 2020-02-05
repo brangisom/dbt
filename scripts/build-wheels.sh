@@ -2,7 +2,10 @@
 
 DBT_PATH="$( cd "$(dirname "$0")/.." ; pwd -P )"
 
+PYTHON_BIN=${PYTHON_BIN:-python}
+
 echo $SCRIPTPATH
+echo $PYTHON_BIN
 
 set -x
 
@@ -13,11 +16,11 @@ for SUBPATH in core plugins/postgres plugins/redshift plugins/bigquery plugins/s
 do
     rm -rf "$DBT_PATH"/"$SUBPATH"/dist
     cd "$DBT_PATH"/"$SUBPATH"
-    python setup.py sdist bdist_wheel
+    $PYTHON_BIN setup.py sdist bdist_wheel
     cp -r "$DBT_PATH"/"$SUBPATH"/dist/* "$DBT_PATH"/dist/
 done
 
 cd "$DBT_PATH"
-python setup.py sdist
+$PYTHON_BIN setup.py sdist bdist_wheel
 
 set +x

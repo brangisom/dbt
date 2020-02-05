@@ -111,6 +111,8 @@ jobs:
       - run:
           name: Build wheels
           command: /bin/bash ./scripts/build-wheels.sh
+          environment:
+            PYTHON_BIN: /home/tox/venv3.8/bin/python
       - store_artifacts:
           path: ./dist
           destination: dist
