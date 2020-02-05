@@ -107,6 +107,9 @@ jobs:
       - checkout
       - run:
           name: Setup env
+          command: pip install -U pip setuptools
+      - run:
+          name: Build wheels
           command: /bin/bash ./scripts/build-wheels.sh
       - store_artifacts:
           path: ./dist
